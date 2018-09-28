@@ -16,6 +16,8 @@ public class HEDatePicker: UIControl {
     public var delegate: HEDatePickerDelegate?
     /// The font for the date picker.
     public var font = UIFont.systemFont(ofSize: 15.0)
+    /// The font for the current date
+    public var selectedFont = UIFont.boldSystemFont(ofSize: 20.0)
     /// The text color for the date picker components.
     public var textColor = UIColor.black
     /// The minimum date to show for the date picker. Set to NSDate.distantPast() by default
@@ -539,7 +541,14 @@ extension HEDatePicker: UIPickerViewDelegate {
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = view as? UILabel == nil ? UILabel() : view as! UILabel
         
-        label.font = self.font
+        var font: UIFont!
+        if self.isRowEnabled(row, forComponent: self.componentAtIndex(component)) {
+            font = self.selectedFont
+        }else {
+            font = self.font
+        }
+                
+        label.font = font
         label.textColor = self.textColor
         if self.calendar.identifier == .persian {
             label.text = self.titleForRow(row, inComponentIndex: component).changeNumbers()
@@ -557,7 +566,7 @@ extension HEDatePicker: UIPickerViewDelegate {
         let widthBuffer = 25.0
         
         let calendarComponent = self.componentAtIndex(component)
-		let stringSizingAttributes = [NSAttributedStringKey.font : self.font]
+		let stringSizingAttributes = [NSAttributedString.Key.font : self.font]
         var size = 0.01
         
         if calendarComponent == .month {
@@ -571,7 +580,7 @@ extension HEDatePicker: UIPickerViewDelegate {
         } else if calendarComponent == .day{
             // Pad the day string to two digits
             let dayComponentSizingString = NSString(string: "00")
-			size = Double(dayComponentSizingString.size(withAttributes: stringSizingAttributes).width)
+			size = Double(dayComponentSizingString.size(withAttributes: stringSizingAttributes).width) + 40.0
         } else if calendarComponent == .year  {
             // Pad the year string to four digits.
             let yearComponentSizingString = NSString(string: "00")

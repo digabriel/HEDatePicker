@@ -27,7 +27,7 @@ TODO: Add long description of the pod here.
   s.author           = { 'Hassan Eskandari' => 'Hassan.3skandari@gmail.com' }
   s.source           = { :git => 'https://github.com/HassanEskandari/HEDatePicker.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
+  s.swift_version = '4.2'
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'HEDatePicker/Classes/**/*'

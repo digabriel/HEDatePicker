@@ -85,6 +85,6 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: HEDatePickerDelegate {
-    func pickerView(_ pickerView: HEDatePicker, didSelectRow row: Int, inComponent component: Int) {
+    @objc func pickerView(_ pickerView: HEDatePicker, didSelectRow row: Int, inComponent component: Int) {
     }
 }
